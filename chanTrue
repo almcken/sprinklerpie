@@ -1,0 +1,16 @@
+import RPi.GPIO as GPIO
+import sys
+
+arg = sys.argv[1]
+print arg
+
+chan = int (arg)
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(chan, GPIO.OUT)
+
+GPIO.output(chan, True)
+
+
+
+
