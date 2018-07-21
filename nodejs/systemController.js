@@ -1,8 +1,14 @@
-const GoogleAppInterface = require('./googleAppInterface');
+const GoogleAppInterface = require('./interfaces/google/googleAppInterface');
 googleAppInterface = new GoogleAppInterface();
 
-const SprinklerController = require('./sprinklerController');
+const SprinklerController = require('./interfaces/sprinkler/sprinklerController');
 sprinklerController = new SprinklerController();
+
+/*
+const AudioPlayer = require('./interfaces/audioPlayer')
+audioPlayer = new AudioPlayer();
+audioPlayer.systemsGo()
+*/
 
 googleAppInterface.shouldRunSprinkler().then(response => {
 	if (response.shouldRun) {
