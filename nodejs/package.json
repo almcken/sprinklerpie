@@ -1,0 +1,14 @@
+{
+  "name": "sprinkler-pie",
+  "version": "1.0.0",
+  "description": "",
+  "main": "systemController.js",
+  "scripts": {
+    "start": "node systemController.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "rpio": "^0.9.22"
+  }
+}
