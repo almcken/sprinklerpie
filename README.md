@@ -16,3 +16,10 @@ This project relies on a Google speadsheet located here:
 https://docs.google.com/spreadsheets/d/1wUf3MjScH6ryYlDLsUJTsy3XhVVZolqlCws6_696Yrw/edit?usp=sharing
 
 I am not giving access to this docuemnt at this time.
+
+### Using Node.js
+On the Raspberry Pi, use the following to install Node.js and configure the required version.
+
+- Install nvm: `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh | bash`
+- Install Node.js 8.9.0: `nvm install 8.9.0`
+- Use Node.js 8.9.0: `nvm use 8.9.0`
