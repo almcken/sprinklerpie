@@ -24,10 +24,11 @@ function stopSprinkler() {
   rpio.msleep(500);
 }
 
-SprinklerController.prototype.runSprinkler = function(duration) {
-	console.log('Beginning sprinkler. Running for', duration, 'minutes');
+SprinklerController.prototype.runSprinkler = function(durationMinutes) {
+	console.log('Beginning sprinkler. Running for', durationMinutes, 'minutes');
 	startSprinkler();
-	setTimeout(stopSprinkler, duration * 1000)
+	const seconds = durationMinutes * 60 * 1000;
+	setTimeout(stopSprinkler, seconds)
 }
 
 module.exports = SprinklerController;
