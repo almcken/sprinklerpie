@@ -12,13 +12,20 @@ function GoogleApi() {
 
 }
 
-GoogleApi.prototype.test = function() {
+GoogleApi.prototype.shouldRunSprinkler = function() {
 	// Load client secrets from a local file.
-  fs.readFile('credentials.json', (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err);
-    // Authorize a client with credentials, then call the Google Sheets API.
-    authorize(JSON.parse(content), shouldRunSprinkler);
-  });
+  return new Promise((resolve, reject) => {
+    fs.readFile('credentials.json', (err, content) => {
+      if (err) return console.log('Error loading client secret file:', err);
+      // Authorize a client with credentials, then call the Google Sheets API.
+      //authorize(JSON.parse(content), shouldRunSprinkler);
+      authorize(JSON.parse(content), function(oAuth2Client){
+        shouldRunSprinkler(oAuth2Client, function(rows){
+          resolve({shouldRun: Boolean(rows[0][0]), duration: rows[0][1]})
+        })
+      });
+    });
+  })
 }
 
 module.exports = GoogleApi;
@@ -73,7 +80,7 @@ function getNewToken(oAuth2Client, callback) {
   });
 }
 
-function shouldRunSprinkler(auth) {
+function shouldRunSprinkler(auth, callback) {
   const sheets = google.sheets({version: 'v4', auth});
   sheets.spreadsheets.values.get({
     spreadsheetId: config.google.sheetId,
@@ -81,6 +88,6 @@ function shouldRunSprinkler(auth) {
   }, (err, res) => {
     if (err) return console.log('The API returned an error: ' + err);
     const rows = res.data.values;
-    console.log(rows)
+    callback(rows)
   });
 }
