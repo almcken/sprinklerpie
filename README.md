@@ -23,3 +23,4 @@ On the Raspberry Pi, use the following to install Node.js and configure the requ
 - Install nvm: `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh | bash`
 - Install Node.js 8.9.0: `nvm install 8.9.0`
 - Use Node.js 8.9.0: `nvm use 8.9.0`
+- Run `cp .env.example .env` and configure the appropriate environment variables

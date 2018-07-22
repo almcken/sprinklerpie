@@ -8,15 +8,26 @@ function SprinklerController() {
 	rpio.open(12, rpio.OUTPUT, rpio.LOW);
 }
 
-SprinklerController.prototype.runSprinkler = function(duration) {
-	console.log('Beginning sprinkler. Running for', duration, 'minutes');
-
+/*
+* Private helper function
+*/
+function startSprinkler() {
 	rpio.write(12, rpio.HIGH);
   rpio.sleep(1);
+}
 
-  /* Off for half a second (500ms) */
+/*
+* Private helper function
+*/
+function stopSprinkler() {
   rpio.write(12, rpio.LOW);
   rpio.msleep(500);
+}
+
+SprinklerController.prototype.runSprinkler = function(duration) {
+	console.log('Beginning sprinkler. Running for', duration, 'minutes');
+	startSprinkler();
+	setTimeout(stopSprinkler, duration * 1000)
 }
 
 module.exports = SprinklerController;
