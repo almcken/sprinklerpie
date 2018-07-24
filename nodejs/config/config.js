@@ -32,7 +32,7 @@ const config = {
     sheetId: envVars.GOOGLE_SHEET_ID
   },
   osc: {
-    enabled: Boolean(envVars.OSC_MODE),
+    enabled: envVars.OSC_MODE == 'true' ? true : false,
     port: envVars.OSC_SERVER_PORT
   }
 };
