@@ -8,34 +8,14 @@ const PIN = 12;
  * being actived, so is safe for devices which require a stable setup.
  */
 function SprinklerController() {
-	rpio.open(12, rpio.OUTPUT, rpio.LOW);
-}
-
-function configTouchOSC() {
-	const osc = require('node-osc');
-	const oscServer = new osc.Server(3000, '0.0.0.0');
-	const client = new osc.Client('192.168.0.101', 3333);
-	oscServer.on('message', function (message, rinfo) {
-		switch (message[0]) {
-			case '/1/toggle4':
-				if (message[1] == '1') {
-					startSprinkler()
-				} else {
-					stopSprinkler()
-				}
-				break;
-			case '/ping':
-				console.log('ping')
-				break;
-		}
-	});
+	rpio.open(PIN, rpio.OUTPUT, rpio.HIGH);
 }
 
 /*
 * Private helper function
 */
 function startSprinkler() {
-	rpio.write(PIN, rpio.HIGH);
+	rpio.write(PIN, rpio.LOW);
   rpio.sleep(1);
 }
 
@@ -43,7 +23,7 @@ function startSprinkler() {
 * Private helper function
 */
 function stopSprinkler() {
-  rpio.write(PIN, rpio.LOW);
+  rpio.write(PIN, rpio.HIGH);
   rpio.msleep(500);
 }
 
