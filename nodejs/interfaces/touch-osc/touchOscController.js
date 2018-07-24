@@ -1,7 +1,10 @@
-function configTouchOSC() {
-	const osc = require('node-osc');
-	const oscServer = new osc.Server(3000, '0.0.0.0');
-	const client = new osc.Client('192.168.0.101', 3333);
+const config = require('../../config/config')
+const osc = require('node-osc');
+const oscServer = new osc.Server(config.osc.port, '0.0.0.0');
+// Disable client for now
+// const client = new osc.Client('192.168.0.101', 3333);
+
+function TouchOSCController() {
 	oscServer.on('message', function (message, rinfo) {
 		switch (message[0]) {
 			case '/1/toggle4':
@@ -17,3 +20,9 @@ function configTouchOSC() {
 		}
 	});
 }
+
+TouchOSCController.prototype.setListener = function(listener) {
+	
+}
+
+module.exports = TouchOSCController;

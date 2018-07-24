@@ -8,6 +8,11 @@ const envVarsSchema = Joi.object({
   NODE_ENV: Joi.string()
     .allow(['development', 'production'])
     .default('development'),
+  OSC_MODE: Joi.string()
+    .allow(['true', 'false'])
+    .default('false'),
+  OSC_SERVER_PORT: Joi.number()
+    .default(3000),
   GOOGLE_SHEET_ID: Joi.string().required()
     .description('Google Sheets ID'),
 }).unknown()
@@ -25,6 +30,10 @@ const config = {
   env: envVars.NODE_ENV,
   google: {
     sheetId: envVars.GOOGLE_SHEET_ID
+  },
+  osc: {
+    enabled: Boolean(envVars.OSC_MODE),
+    port: envVars.OSC_SERVER_PORT
   }
 };
 

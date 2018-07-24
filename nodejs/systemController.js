@@ -1,10 +1,17 @@
 const config = require('./config/config')
 
 const GoogleAppInterface = require('./interfaces/google/googleAppInterface');
-googleAppInterface = new GoogleAppInterface();
+const googleAppInterface = new GoogleAppInterface();
 
 const SprinklerController = require('./interfaces/sprinkler/sprinklerController');
-sprinklerController = new SprinklerController();
+const sprinklerController = new SprinklerController();
+
+const TouchOSCController = require('./interfaces/touch-osc/touchOscController.js');
+if (config.osc.enabled) {
+	console.log('Manual mode enabled!')
+}
+
+const touchOscController = new TouchOSCController();
 
 googleAppInterface.shouldRunSprinkler().then(response => {
 	if (response.shouldRun) {
