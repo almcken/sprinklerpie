@@ -13,9 +13,11 @@ if (config.osc.enabled) {
 	touchOscController = new TouchOSCController();
 	touchOscController.addRelay1Listener((messageValue) => {
 		if (messageValue == 1) {
-			touchOscController.manualStartSprinkler()
+			console.log('Manually starting sprinkler...')
+			sprinklerController.manualStartSprinkler()
 		} else if (messageValue == 0) {
-			touchOscController.manualStopSprinkler()
+			console.log('Manually stopping sprinkler...')
+			sprinklerController.manualStopSprinkler()
 		} else {
 			console.log('Received unknown message value from touch OSC controller... "', messageValue, '"')
 		}
