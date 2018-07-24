@@ -21,7 +21,7 @@ GoogleApi.prototype.shouldRunSprinkler = function() {
       //authorize(JSON.parse(content), shouldRunSprinkler);
       authorize(JSON.parse(content), function(oAuth2Client){
         shouldRunSprinkler(oAuth2Client, function(rows){
-          resolve({shouldRun: Boolean(rows[0][0]), duration: rows[0][1]})
+          resolve({shouldRun: rows[0][0] == 'TRUE' ? true : false, duration: rows[0][1]})
         })
       });
     });
