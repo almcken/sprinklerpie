@@ -8,10 +8,6 @@ const envVarsSchema = Joi.object({
   NODE_ENV: Joi.string()
     .allow(['development', 'production'])
     .default('development'),
-  GOOGLE_API_KEY: Joi.string().required()
-    .description('Key for Google API'),
-  GOOGLE_API_SECRET: Joi.string().required()
-    .description('Secret for Google API'),
   GOOGLE_SHEET_ID: Joi.string().required()
     .description('Google Sheets ID'),
 }).unknown()
@@ -28,8 +24,6 @@ if (error) {
 const config = {
   env: envVars.NODE_ENV,
   google: {
-    key: envVars.GOOGLE_API_KEY,
-    secret: envVars.GOOGLE_API_SECRET,
     sheetId: envVars.GOOGLE_SHEET_ID
   }
 };
