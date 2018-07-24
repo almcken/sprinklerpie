@@ -26,4 +26,5 @@ On the Raspberry Pi, use the following to install Node.js and configure the requ
 - Use Node.js 8.9.0: `nvm use 8.9.0`
 - Run `cp .env.example .env` and configure the appropriate environment variables. Enter the spreadsheet id for the Google Sheet in the `.env` file.
 - Ensure you have the appropriate `credentials.json` file in the root of the project from the [Google Developer Console](https://console.developers.google.com/apis/dashboard)
+- Run `npm install`
 - Run `npm start` and follow the prompts
