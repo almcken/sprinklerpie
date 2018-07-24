@@ -7,11 +7,20 @@ const SprinklerController = require('./interfaces/sprinkler/sprinklerController'
 const sprinklerController = new SprinklerController();
 
 const TouchOSCController = require('./interfaces/touch-osc/touchOscController.js');
+var touchOscController
 if (config.osc.enabled) {
 	console.log('Manual mode enabled!')
+	touchOscController = new TouchOSCController();
+	touchOscController.addRelay1Listener((messageValue) => {
+		if (messageValue == 1) {
+			touchOscController.manualStartSprinkler()
+		} else if (messageValue == 0) {
+			touchOscController.manualStopSprinkler()
+		} else {
+			console.log('Received unknown message value from touch OSC controller... "', messageValue, '"')
+		}
+	})
 }
-
-const touchOscController = new TouchOSCController();
 
 googleAppInterface.shouldRunSprinkler().then(response => {
 	if (response.shouldRun) {

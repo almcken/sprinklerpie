@@ -41,4 +41,12 @@ SprinklerController.prototype.runSprinkler = function(durationMinutes) {
 	setTimeout(stopSprinkler, seconds)
 }
 
+SprinklerController.prototype.manualStartSprinkler = function(durationMinutes) {
+	startSprinkler();
+}
+
+SprinklerController.prototype.manualStopSprinkler = function(durationMinutes) {
+	stopSprinkler();
+}
+
 module.exports = SprinklerController;
