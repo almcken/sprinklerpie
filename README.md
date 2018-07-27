@@ -3,28 +3,21 @@
 Welcome. The Sprinkler Pie is a Raspberry Pi controlled, Google sheets integrated, Rain Bird modular, lawn watering machine.
 
 ### Getting Started
-Running `python chanTrue.py 2` will activate channel 2 on your Raspberry Pi. 
+On the Raspberry Pi, use the following to install Node.js and configure the required version.
 
-The mapping from GPIO pins to relay module:
-- channel 2 = Relay switch 1
-- channel 3 = Relay switch 2
-- channel 4 = Relay switch 3
-- channel 27 = Relay switch 4
+- `git clone https://github.com/almcken/sprinklerpie.git`
+- cd `sprinklerpie`
+- Install nvm: `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh | bash`
+- Install Node.js: `nvm install 8.9.4`
+- Use Node.js version: `nvm use 8.9.4`
+- Run `cp .env.example .env` and configure the appropriate environment variables. Enter the spreadsheet id for the Google Sheet in the `.env` file.
+- Ensure you have the appropriate credentials in the root directory. You can download them from the [Google Developer Console](https://console.developers.google.com/apis/credentials). Rename the downloaded json file to `credentials.json` and move to the root directory.
+- Run `npm install`
+- Run `npm start` and follow the prompts to configure Google OAuth. You will only have to do this the first time you run the project.
 
+### Dependencies
 This project relies on a Google speadsheet located here:
 
 https://docs.google.com/spreadsheets/d/1wUf3MjScH6ryYlDLsUJTsy3XhVVZolqlCws6_696Yrw/edit?usp=sharing
 
 I am not giving access to this docuemnt at this time.
-
-### Using Node.js
-On the Raspberry Pi, use the following to install Node.js and configure the required version.
-
-- From the nodejs directory:
-- Install nvm: `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh | bash`
-- Install Node.js 8.9.0: `nvm install 8.9.0`
-- Use Node.js 8.9.0: `nvm use 8.9.0`
-- Run `cp .env.example .env` and configure the appropriate environment variables. Enter the spreadsheet id for the Google Sheet in the `.env` file.
-- Ensure you have the appropriate `credentials.json` file in the root of the nodejs directory. You can download them from the [Google Developer Console](https://console.developers.google.com/apis/credentials).
-- Run `npm install`
-- Run `npm start` and follow the prompts
