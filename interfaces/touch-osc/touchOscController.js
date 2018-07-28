@@ -4,27 +4,29 @@ const oscServer = new osc.Server(config.osc.port, '0.0.0.0');
 // Disable client for now
 // const client = new osc.Client('192.168.0.101', 3333);
 
-const relay1Listeners = [];
+const messageTypeZoneMap = {
+	'/1/toggle1': 'zone1',
+	'/1/toggle2': 'zone2',
+	'/1/toggle3': 'zone3',
+	'/1/toggle4': 'zone4'
+}
+const relayListeners = [];
 
 function TouchOSCController() {
 	oscServer.on('message', function (message, rinfo) {
 		const messageType = message[0];
-		switch (messageType) {
-			case '/1/toggle4':
-				const messageValue = message[1];
-				relay1Listeners.forEach(listener => {
-					listener(messageValue);
-				})
-				break;
-			case '/ping':
-				// Use the ping however necessary, if at all
-				break;
+		const messageValue = message[1];
+		const zone = messageTypeZoneMap[messageType];
+		if (zone) {
+			relayListeners.forEach(listener => {
+				listener({zone, messageValue});
+			})
 		}
 	});
 }
 
-TouchOSCController.prototype.addRelay1Listener = function(listener) {
-	relay1Listeners.push(listener);
+TouchOSCController.prototype.addRelayListener = function(listener) {
+	relayListeners.push(listener);
 }
 
 module.exports = TouchOSCController;

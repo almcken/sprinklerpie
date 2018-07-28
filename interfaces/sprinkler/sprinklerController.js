@@ -1,5 +1,8 @@
 const rpio = require('rpio');
 
+const zonePinMap = {
+
+}
 // Value of the pin number, not the GPIO number
 const PIN = 12;
 
@@ -14,7 +17,8 @@ function SprinklerController() {
 /*
 * Private helper function
 */
-function startSprinkler() {
+function startSprinkler(zone) {
+	console.log('start', zone)
 	rpio.write(PIN, rpio.LOW);
   rpio.sleep(1);
 }
@@ -22,7 +26,8 @@ function startSprinkler() {
 /*
 * Private helper function
 */
-function stopSprinkler() {
+function stopSprinkler(zone) {
+	console.log('stop', zone)
   rpio.write(PIN, rpio.HIGH);
   rpio.msleep(500);
 }
@@ -34,19 +39,21 @@ function checkSprinkler() {
   console.log('Pin', PIN, '=', rpio.read(PIN));
 }
 
-SprinklerController.prototype.runSprinkler = function(durationMinutes) {
-	console.log('Beginning sprinkler. Running for', durationMinutes, 'minutes');
-	startSprinkler();
+SprinklerController.prototype.runSprinkler = function(zone, durationMinutes) {
+	console.log('Beginning zone', zone, '. Running for', durationMinutes, 'minutes');
+	startSprinkler(zone);
 	const seconds = durationMinutes * 10 * 1000;
-	setTimeout(stopSprinkler, seconds)
+	setTimeout(function(){
+		stopSprinkler(zone);
+	}, seconds)
 }
 
-SprinklerController.prototype.manualStartSprinkler = function(durationMinutes) {
-	startSprinkler();
+SprinklerController.prototype.manualStartSprinkler = function(zone) {
+	startSprinkler(zone);
 }
 
-SprinklerController.prototype.manualStopSprinkler = function(durationMinutes) {
-	stopSprinkler();
+SprinklerController.prototype.manualStopSprinkler = function(zone) {
+	stopSprinkler(zone);
 }
 
 module.exports = SprinklerController;

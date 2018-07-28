@@ -11,23 +11,27 @@ var touchOscController
 if (config.osc.enabled) {
 	console.log('Manual mode enabled!')
 	touchOscController = new TouchOSCController();
-	touchOscController.addRelay1Listener((messageValue) => {
-		if (messageValue == 1) {
-			console.log('Manually starting sprinkler...')
-			sprinklerController.manualStartSprinkler()
-		} else if (messageValue == 0) {
-			console.log('Manually stopping sprinkler...')
-			sprinklerController.manualStopSprinkler()
+
+	touchOscController.addRelayListener((response) => {
+		if (response.messageValue == 1) {
+			sprinklerController.manualStartSprinkler(response.zone);
+		} else if (response.messageValue == 0) {
+			sprinklerController.manualStopSprinkler(response.zone);
 		} else {
 			console.log('Received unknown message value from touch OSC controller... "', messageValue, '"')
 		}
 	})
 }
 
-googleAppInterface.shouldRunSprinkler().then(response => {
-	if (response.shouldRun) {
-		sprinklerController.runSprinkler(response.duration)
-	} else {
-		console.log('Sprinkler does not need to run today')
-	}
-})
+function checkAndRunSprinkler() {
+	googleAppInterface.shouldRunSprinkler().then(response => {
+		if (response.shouldRun) {
+			// hardcoded zone 1 for now
+			const zone = 1;
+			sprinklerController.runSprinkler(zone, response.duration)
+		} else {
+			console.log('Sprinkler does not need to run today')
+		}
+	})
+}
+checkAndRunSprinkler()
