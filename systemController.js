@@ -27,11 +27,12 @@ function checkAndRunSprinkler() {
 	googleAppInterface.shouldRunSprinkler().then(response => {
 		if (response.shouldRun) {
 			// hardcoded zone 1 for now
-			const zone = 1;
+			const zone = 'zone1';
 			sprinklerController.runSprinkler(zone, response.duration)
 		} else {
 			console.log('Sprinkler does not need to run today')
 		}
 	})
 }
+
 checkAndRunSprinkler()
