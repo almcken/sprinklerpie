@@ -3,12 +3,13 @@ const config = require('./config/config')
 const GoogleAppInterface = require('./interfaces/google/googleAppInterface');
 const googleAppInterface = new GoogleAppInterface();
 
-const SprinklerController = require('./interfaces/sprinkler/sprinklerController');
-const sprinklerController = new SprinklerController();
+const LightsController = require('./interfaces/lights/christmasLights');
+const lightsController = new LightsController();
 
-const TouchOSCController = require('./interfaces/touch-osc/touchOscController.js');
-var touchOscController
+
 if (config.osc.enabled) {
+	const TouchOSCController = require('./interfaces/touch-osc/touchOscController.js');
+	var touchOscController
 	console.log('Manual mode enabled!')
 	touchOscController = new TouchOSCController();
 
@@ -28,11 +29,31 @@ function checkAndRunSprinkler() {
 		if (response.shouldRun) {
 			// hardcoded zone 1 for now
 			const zone = 'zone1';
-			sprinklerController.runSprinkler(zone, response.duration)
+			console.log(response)
+			// sprinklerController.runSprinkler(zone, response.duration)
 		} else {
 			console.log('Sprinkler does not need to run today')
 		}
 	})
 }
 
-checkAndRunSprinkler()
+function getLightStatus() {
+	googleAppInterface.getLightStatus().then(response => {
+		const zone = 'zone1';
+		if (response.lightsOn) {
+			lightsController.lightsOn(zone)
+		} else {
+			lightsController.lightsOff(zone)
+		}
+	})
+}
+
+
+const app = process.argv[2]
+
+switch (app) {
+	case '--lights':
+		console.log('Checking lights status')
+		getLightStatus();
+		break;
+}

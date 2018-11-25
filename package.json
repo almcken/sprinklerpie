@@ -4,7 +4,8 @@
   "description": "",
   "main": "systemController.js",
   "scripts": {
-    "start": "node systemController.js"
+    "start": "node systemController.js",
+    "start.lights": "node systemController.js --lights"
   },
   "author": "",
   "license": "ISC",

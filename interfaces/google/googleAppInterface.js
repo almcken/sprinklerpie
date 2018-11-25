@@ -9,4 +9,8 @@ GoogleAppInterface.prototype.shouldRunSprinkler = function() {
 	return googleApi.shouldRunSprinkler();
 }
 
+GoogleAppInterface.prototype.getLightStatus = function() {
+	return googleApi.getLightStatus();
+}
+
 module.exports = GoogleAppInterface;

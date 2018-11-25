@@ -28,6 +28,23 @@ GoogleApi.prototype.shouldRunSprinkler = function() {
   })
 }
 
+GoogleApi.prototype.getLightStatus = function() {
+  console.log('******************')
+  // Load client secrets from a local file.
+  return new Promise((resolve, reject) => {
+    fs.readFile('credentials.json', (err, content) => {
+      if (err) return console.log('Error loading client secret file:', err);
+      // Authorize a client with credentials, then call the Google Sheets API.
+      //authorize(JSON.parse(content), shouldRunSprinkler);
+      authorize(JSON.parse(content), function(oAuth2Client){
+        getLightStatus(oAuth2Client, function(rows){
+          resolve({lightsOn: rows[0][0] == 'ON' ? true : false})
+        })
+      });
+    });
+  })
+}
+
 module.exports = GoogleApi;
 
 /**
@@ -91,3 +108,17 @@ function shouldRunSprinkler(auth, callback) {
     callback(rows)
   });
 }
+
+function getLightStatus(auth, callback) {
+  const sheets = google.sheets({version: 'v4', auth});
+  sheets.spreadsheets.values.get({
+    spreadsheetId: config.google.sheetId,
+    range: 'Sheet1!B2',
+  }, (err, res) => {
+    if (err) return console.log('The API returned an error: ' + err);    
+    const rows = res.data.values;
+    callback(rows)
+  });
+}
+
+
