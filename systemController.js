@@ -54,6 +54,7 @@ const app = process.argv[2]
 switch (app) {
 	case '--lights':
 		console.log('Checking lights status')
-		getLightStatus();
+		const intervalCheck = 1000 * 5;
+		setInterval(getLightStatus, intervalCheck)
 		break;
 }

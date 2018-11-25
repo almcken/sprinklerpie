@@ -29,7 +29,6 @@ GoogleApi.prototype.shouldRunSprinkler = function() {
 }
 
 GoogleApi.prototype.getLightStatus = function() {
-  console.log('******************')
   // Load client secrets from a local file.
   return new Promise((resolve, reject) => {
     fs.readFile('credentials.json', (err, content) => {
