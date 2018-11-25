@@ -3,6 +3,9 @@ const config = require('./config/config')
 const GoogleAppInterface = require('./interfaces/google/googleAppInterface');
 const googleAppInterface = new GoogleAppInterface();
 
+const SprinklerController = require('./interfaces/sprinkler/sprinklerController');
+const sprinklerController = new SprinklerController();
+
 const LightsController = require('./interfaces/lights/christmasLights');
 const lightsController = new LightsController();
 
