@@ -26,7 +26,6 @@ function ChristmasLightsController() {
 function lightsOn(zone) {
 	const PIN = zonePinMap[zone];
 	if (PIN) {
-		console.log('start', zone)
 		rpio.write(PIN, rpio.LOW);
 	} else {
 		console.log('Cannot start sprinkler. No mapping found for', zone);
@@ -39,7 +38,6 @@ function lightsOn(zone) {
 function lightsOff(zone) {
 	const PIN = zonePinMap[zone];
 	if (PIN) {
-		console.log('stop', zone)
 		rpio.write(PIN, rpio.HIGH);
 	} else {
 		console.log('Cannot stop sprinkler. No mapping found for', zone);

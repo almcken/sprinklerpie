@@ -41,8 +41,10 @@ function getLightStatus() {
 	googleAppInterface.getLightStatus().then(response => {
 		const zone = 'zone1';
 		if (response.lightsOn) {
+			console.log('ON - light status')
 			lightsController.lightsOn(zone)
 		} else {
+			console.log('OFF - light status')
 			lightsController.lightsOff(zone)
 		}
 	})
@@ -53,7 +55,7 @@ const app = process.argv[2]
 
 switch (app) {
 	case '--lights':
-		console.log('Checking lights status')
+		// const intervalCheck = 1000 * 60 * 15;
 		const intervalCheck = 1000 * 5;
 		setInterval(getLightStatus, intervalCheck)
 		break;
