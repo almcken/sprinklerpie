@@ -60,4 +60,15 @@ switch (app) {
 		const intervalCheck = 1000 * 5;
 		setInterval(getLightStatus, intervalCheck)
 		break;
+	case '--show':
+		var index = 0;
+		setInterval(function () {
+			index++;
+			if (index % 2 == 0) {
+				lightsController.lightsOn('zone1');
+			} else {
+				lightsController.lightsOff('zone1');		
+			}
+		}, 250)
+		break;
 }
