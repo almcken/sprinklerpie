@@ -41,11 +41,9 @@ function getLightStatus() {
 	googleAppInterface.getLightStatus().then(response => {
 		const zone = 'zone1';
 		if (response.lightsOn) {
-			console.log('ON - light status')
-			lightsController.lightsOn(zone)
+			lightsController.lightsOn(zone);
 		} else {
-			console.log('OFF - light status')
-			lightsController.lightsOff(zone)
+			lightsController.lightsOff(zone);
 		}
 	})
 }
